@@ -1,0 +1,190 @@
+﻿https://getbootstrap.com/docs/4.0/examples/navbar-top-fixed/
+
+https://www.aspsnippets.com/Articles/Implement-Role-based-Bootstrap-Menu-in-ASPNet-MVC.aspx
+https://medium.com/@TechVisually/vertical-accordion-sidebar-8cd0a1d9d2a5
+https://bootstrapious.com/p/bootstrap-sidebar
+http://www.codescratcher.com/bootstrap/vertical-sidebar-in-bootstrap/
+https://adminlte.io/blog/free-admin-panels
+http://www.urbanui.com/turbo/pages/index.html
+https://codepen.io/makbash/pen/gZxxMW
+https://www.codeply.com/go/7XYosZ7VH5
+https://www.codeply.com/go/i8xuvOmVw3/bootstrap-4-affix-nav-and-sidebar-layout
+https://bootstrapcreative.com/pattern/bootstrap-4-vertical-nav-tabs-snippet/
+
+https://codepen.io/makbash/pen/gZxxMW
+https://www.codeply.com/go/7XYosZ7VH5
+https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidenav_fixed + https://codepen.io/makbash/pen/gZxxMW
+Autorized
+https://www.danylkoweb.com/Blog/integrating-microsoft-identity-authorization-into-a-menu-system-IV
+https://www.c-sharpcorner.com/article/role-based-menus-in-asp-net-mvc/
+https://books.google.com.ua/books?id=bhoPDQAAQBAJ&pg=PA203&lpg=PA203&dq=asp+net+identity+set+style+authorized&source=bl&ots=k7gHdEAGim&sig=ACfU3U2mP5KPGetfANd3p9ASYeG5L8yHuw&hl=ru&sa=X&ved=2ahUKEwjHh5Kao9PnAhXBo4sKHYpKD1UQ6AEwA3oECAgQAQ#v=onepage&q=asp%20net%20identity%20set%20style%20authorized&f=false
+https://t-heiten.net/aspnetcore/aspnetcore-basics/asp-identity-role-based-authorization/
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+
+.navbar-global {
+  background-color: indigo;
+}
+
+.navbar-global .navbar-brand {
+  color: white;
+}
+
+.navbar-global .navbar-user > li > a
+{
+  color: white;
+}
+
+.navbar-primary {
+ height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.navbar-primary.collapsed {
+  width: 60px;
+}
+
+        .navbar-primary.collapsed .glyphicon {
+            font-size: 22px;
+        }
+
+        .navbar-primary.collapsed .nav-label {
+            display: none;
+        }
+
+        .btn-expand-collapse {
+            position: absolute;
+            display: block;
+            left: 0px;
+            bottom: 0;
+            width: 100%;
+            padding: 8px 0;
+            border-top: solid 1px #666;
+            color: grey;
+            font-size: 20px;
+            text-align: center;
+        }
+
+.btn-expand-collapse:hover,
+.btn-expand-collapse:focus {
+    background-color: #222;
+    color: white;
+}
+
+.btn-expand-collapse:active {
+    background-color: #111;
+}
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+  margin:0; padding:0;
+  list-style: none;
+}
+
+.navbar-primary-menu li a {
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom:solid 1px #444;
+  color: #ccc;
+}
+
+.navbar-primary-menu li a:hover {
+  background-color: #000;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-primary-menu li a .glyphicon {
+  margin-right: 6px;
+}
+
+.navbar-primary-menu li a:hover .glyphicon {
+  color: orchid;
+}
+
+.main-content {
+  margin-top: 60px;
+  margin-left: 200px;
+  padding: 20px;
+}
+
+.collapsed + .main-content {
+  margin-left: 60px;
+}
+
+
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <div class="container">
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+
+    <nav class="navbar-primary">
+        <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span></a>
+        <ul class="navbar-primary-menu">
+            <li>
+                <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Dashboard</span></a>
+                <a href="#"><span class="glyphicon glyphicon-envelope"></span><span class="nav-label">Profile</span></a>
+                <a href="#"><span class="glyphicon glyphicon-cog"></span><span class="nav-label">Settings</span></a>
+                <a href="#"><span class="glyphicon glyphicon-film"></span><span class="nav-label">Notification</span></a>
+                <a href="#"><span class="glyphicon glyphicon-calendar"></span><span class="nav-label">Monitor</span></a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <script>
+
+$('.btn-expand-collapse').click(function(e) {
+				$('.navbar-primary').toggleClass('collapsed');
+});
+
+
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

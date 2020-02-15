@@ -1,0 +1,20 @@
+﻿https://www.codeproject.com/Articles/171695/Dynamic-CSS-using-Razor-Engine
+https://www.c-sharpcorner.com/forums/how-to-change-the-css-file-at-runtime-using-c-sharp-in-mvc
+https://forums.asp.net/t/2078094.aspx?Dynamically+Changing+CSS+class+at+runtime
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/older-versions/hands-on-labs/whats-new-in-aspnet-mvc-4#Exercise2
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-1
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/older-versions/hands-on-labs/whats-new-in-aspnet-mvc-4
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/older-versions/hands-on-labs/whats-new-in-aspnet-mvc-4#Exercise2
+https://www.youtube.com/watch?v=jpne8fCwFJ8&list=RDCGblT4FasEo&index=27
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-1
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/security/individual-accounts-in-web-api
+https://docs.microsoft.com/ru-ru/ef/ef6/modeling/code-first/fluent/cud-stored-procedures?redirectedfrom=MSDN
+https://docs.microsoft.com/ru-ru/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/security/
+https://codewithhugo.com/pass-cookies-axios-fetch-requests/
+https://docs.microsoft.com/ru-ru/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity
+
+Код сначала создает имена по умолчанию хранимых процедур. Если вы используете существующую базу данных, может потребоваться настроить имен хранимых процедур, чтобы использовать хранимые процедуры, уже определенные в базе данных. Сведения о том, как это сделать, см. в разделе Entity Framework код первого Insert/Update/Delete хранимые процедуры.
+Если вы хотите настроить, что созданные хранимых процедур, можно изменить сформированный код для миграций Up метод, который создает хранимую процедуру. Таким образом изменения будут отражены каждый раз, когда что миграции запускается и будет применяться в производственной базе данных, при миграции автоматически выполняется в рабочей среде после развертывания.
+Если вы хотите изменить существующую хранимую процедуру, которая была создана в предыдущей миграции, используйте команду Add-Migration, чтобы создать пустой миграции и вручную написать код, вызывающий AlterStoredProcedure метод .
