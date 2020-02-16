@@ -1,0 +1,10 @@
+﻿https://metanit.com/sharp/mvc5/12.3.php
+https://docs.microsoft.com/uk-ua/ef/ef6/modeling/code-first/migrations/index?redirectedfrom=MSDN
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
+
+The project 'MVCAuto' failed to build. ->
+Rebuild
+PM>
+enable-migrations
+Add-Migration "Add_Vehicle_Model_Class"
+Update-Database

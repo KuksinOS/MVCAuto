@@ -1,0 +1,66 @@
+﻿@model MVCAuto.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Vin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OperDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IntRowVer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IntRowVer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RowVersion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RowVersion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -20,6 +20,8 @@ namespace MVCAuto.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Vehicle> Vehicle { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

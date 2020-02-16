@@ -176,12 +176,23 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002162025323_InitialCreate.cs" />
+    <Compile Include="Migrations\202002162025323_InitialCreate.designer.cs">
+      <DependentUpon>202002162025323_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002162118003_Add_Vehicle_Model_Class.cs" />
+    <Compile Include="Migrations\202002162118003_Add_Vehicle_Model_Class.designer.cs">
+      <DependentUpon>202002162118003_Add_Vehicle_Model_Class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -192,10 +203,14 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="FAQ\ApplicationDbContext.txt" />
     <Content Include="FAQ\Bootstrap4.txt" />
+    <Content Include="FAQ\CodeFirst.txt" />
     <Content Include="FAQ\dialog.txt" />
     <Content Include="FAQ\DynamicCSS.txt" />
+    <Content Include="FAQ\FAQ.txt" />
     <Content Include="FAQ\Menu.txt" />
+    <Content Include="FAQ\PathDB.txt" />
     <Content Include="FAQ\задачи.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -350,6 +365,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Vehicle\Create.cshtml" />
+    <Content Include="Views\Vehicle\Delete.cshtml" />
+    <Content Include="Views\Vehicle\Details.cshtml" />
+    <Content Include="Views\Vehicle\Edit.cshtml" />
+    <Content Include="Views\Vehicle\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,6 +384,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002162025323_InitialCreate.resx">
+      <DependentUpon>202002162025323_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002162118003_Add_Vehicle_Model_Class.resx">
+      <DependentUpon>202002162118003_Add_Vehicle_Model_Class.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
