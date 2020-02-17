@@ -1,0 +1,5 @@
+﻿https://stackoverflow.com/questions/17013669/pass-multiple-parameters-in-html-beginform-mvc/17013690
+https://stackoverflow.com/questions/25106043/html-beginform-does-not-call-action-method-in-mvc
+https://forums.asp.net/t/1916038.aspx?ASP+NET+MVC+Using+two+inputs+with+Html+BeginForm
+https://www.codeproject.com/Questions/639370/MVC-passing-parameter-on-post-to-controller
+https://stackoverflow.com/questions/18487154/how-to-change-attribute-of-html-beginform-on-form-submitting

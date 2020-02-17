@@ -193,6 +193,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="ModelViews\VehicleViews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -209,6 +210,7 @@
     <Content Include="FAQ\dialog.txt" />
     <Content Include="FAQ\DynamicCSS.txt" />
     <Content Include="FAQ\FAQ.txt" />
+    <Content Include="FAQ\HtmlBeginForm.txt" />
     <Content Include="FAQ\Menu.txt" />
     <Content Include="FAQ\PathDB.txt" />
     <Content Include="FAQ\задачи.txt" />

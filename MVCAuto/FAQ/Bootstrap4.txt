@@ -1,2 +1,22 @@
 ﻿install
 https://sensibledev.com/mvc-bootstrap-form-example/
+dashboard
+https://themewagon.com/themes/free-bootstrap-4-html5-admin-dashboard-template-sufee/
+
+Bootstrap Panel Examples
+https://stackoverflow.com/questions/40178386/bootstrap-4-navbar-items-on-right-side
+
+
+https://bootstrap-4.ru/docs/4.0/components/navbar/
+https://bootsnipp.com/tags/panel
+
+button + filter panel
+https://bootsnipp.com/snippets/8G2Q
+
+modal
+https://getbootstrap.com/docs/4.0/components/modal/
+https://stackoverflow.com/questions/24166568/set-bootstrap-modal-body-height-by-percentage
+http://jsfiddle.net/mehmetatas/18dpgqpb/2/
+
+events to mvc
+https://www.c-sharpcorner.com/forums/how-to-call-on-click-event-in-mvc-5
