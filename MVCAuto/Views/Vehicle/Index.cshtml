@@ -38,10 +38,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Справочник автомобилей</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить", "Create")
 </p>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
@@ -53,25 +53,49 @@
 
             <script type="text/javascript">
 
-                function setcreate() {             
-                    $('#IDGRUD').prop('action', "/Vehicle/Create"); 
-              }
+                function setcreate() {
+                    $('#IDGRUD').prop('action', "/Vehicle/Create");
+                    $('#GRUDModalCenter').modal('toggle');
+                }
 
             </script>
 
         </li>
         <li class="nav-item">
-            <button type="button" class="btn btn-secondary" style="margin-right:5px;" data-toggle="modal" data-target="#GRUDModalCenter" onclick="setedit()">Редактировать</button>
+            @*<button type="button" class="btn btn-secondary" style="margin-right:5px;" data-toggle="modal" data-target="#GRUDModalCenter" onclick="setedit()">Редактировать</button>*@
+            <button type="button" class="btn btn-secondary" style="margin-right:5px;" data-toggle="modal" onclick="setedit()">Редактировать</button>
             <script type="text/javascript">
 
                 function setedit() {
-                    $('#IDGRUD').prop('action', "/Vehicle/Edit/" + @ViewBag.ID); 
+                    const idparam = '@(ViewBag.ID)';
+
+                    if (idparam != '') {
+                        $('#IDGRUD').prop('action', "/Vehicle/Edit/" + idparam);
+                        $('#GRUDModalCenter').modal('toggle');
+                    }
+                    else
+                        alert('Выберите строку!');
+
                 }
 
             </script>
         </li>
         <li class="nav-item">
-            <button type="button" class="btn btn-secondary">Удалить</button>
+            <button type="button" class="btn btn-secondary" onclick="setdelete()">Удалить</button>
+            <script type="text/javascript">
+
+                function setdelete() {
+                    const idparam = '@(ViewBag.ID)';
+
+                    if (idparam != '') {
+                        $('#IDGRUD').prop('action', "/Vehicle/Delete/" + idparam);
+                        $("#IDGRUD").submit();
+                    }
+                    else
+                        alert('Выберите строку!');
+                }
+
+            </script>
         </li>
     </ul>
 </nav>
@@ -122,10 +146,10 @@
                 @Html.DisplayFor(modelItem => item.IntRowVer)
             </td>
             <td>
-                @Html.ActionLink("Select", "Index", new { id = item.ID }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Выбрать", "Index", new { id = item.ID }) |
+                @Html.ActionLink("Отредактировать", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Детально", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
             </td>
         </tr>
     }
@@ -134,7 +158,8 @@
 
 <!-- Modal -->
 @*@using (Html.BeginForm("Create", "Vehicle", FormMethod.Post))*@
-@using (Html.BeginForm(null, null, FormMethod.Post, new {ID = "IDGRUD", onsubmit="return sayHello()"}))
+@*@using (Html.BeginForm(null, null, FormMethod.Post, new { ID = "IDGRUD", onsubmit = "return process()" }))*@
+@using (Html.BeginForm(null, null, FormMethod.Post, new { ID = "IDGRUD"}))
 {
     @Html.AntiForgeryToken()
     <div class="modal fade bd-example-modal-lg" id="GRUDModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -150,6 +175,8 @@
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.SelVehicle.ID)
+                    @*добавьте скрытое поле для сохранения RowVersion*@
+                    @Html.HiddenFor(model => model.SelVehicle.RowVersion)
                     <div class="form-group">
                         @Html.LabelFor(model => model.SelVehicle.Vin, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">

@@ -50,20 +50,13 @@
         <dd>
             @Html.DisplayFor(model => model.IntRowVer)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RowVersion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RowVersion)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.RowVersion)
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
