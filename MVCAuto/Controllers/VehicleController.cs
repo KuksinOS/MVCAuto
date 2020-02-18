@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MVCAuto.Models;
@@ -74,12 +75,12 @@ namespace MVCAuto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Vin,Color,Price,OperDate,IntRowVer,RowVersion")] Vehicle SelVehicle)
+        public async Task<ActionResult> Create([Bind(Include = "Vin,Color,Price,OperDate,IntRowVer")] Vehicle SelVehicle)
         {
             if (ModelState.IsValid)
             {
                 db.Vehicle.Add(SelVehicle);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 // return View("Index", SelVehicle);
                 return RedirectToAction("Index");
             }
