@@ -147,6 +147,7 @@
             <ul class="navbar-primary-menu">
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-list-alt"></span><span class="nav-label">Главная</span></a>
+                    @Html.ActionLink("Справочник цветов", "Index", "ColorVehicle", null, new { @class = "nav-link" })
                     @Html.ActionLink("Автомобили", "Index", "Vehicle", null, new { @class = "nav-link" })
                 </li>
             </ul>

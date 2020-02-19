@@ -188,8 +188,22 @@
     <Compile Include="Migrations\202002162118003_Add_Vehicle_Model_Class.designer.cs">
       <DependentUpon>202002162118003_Add_Vehicle_Model_Class.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002182143135_Add_ColorVehicle_Model_Class.cs" />
+    <Compile Include="Migrations\202002182143135_Add_ColorVehicle_Model_Class.designer.cs">
+      <DependentUpon>202002182143135_Add_ColorVehicle_Model_Class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002182153040_Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID.cs" />
+    <Compile Include="Migrations\202002182153040_Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID.designer.cs">
+      <DependentUpon>202002182153040_Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002190654298_Rename_ColorID_To_ColorId.cs" />
+    <Compile Include="Migrations\202002190654298_Rename_ColorID_To_ColorId.designer.cs">
+      <DependentUpon>202002190654298_Rename_ColorID_To_ColorId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ColorVehicle.cs" />
+    <Compile Include="Controllers\ColorVehicleController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -208,6 +222,7 @@
     <Content Include="FAQ\Bootstrap4.txt" />
     <Content Include="FAQ\CodeFirst.txt" />
     <Content Include="FAQ\dialog.txt" />
+    <Content Include="FAQ\DropDownList.txt" />
     <Content Include="FAQ\DynamicCSS.txt" />
     <Content Include="FAQ\FAQ.txt" />
     <Content Include="FAQ\HtmlBeginForm.txt" />
@@ -372,6 +387,11 @@
     <Content Include="Views\Vehicle\Details.cshtml" />
     <Content Include="Views\Vehicle\Edit.cshtml" />
     <Content Include="Views\Vehicle\Index.cshtml" />
+    <Content Include="Views\ColorVehicle\Create.cshtml" />
+    <Content Include="Views\ColorVehicle\Delete.cshtml" />
+    <Content Include="Views\ColorVehicle\Details.cshtml" />
+    <Content Include="Views\ColorVehicle\Edit.cshtml" />
+    <Content Include="Views\ColorVehicle\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -393,6 +413,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002162118003_Add_Vehicle_Model_Class.resx">
       <DependentUpon>202002162118003_Add_Vehicle_Model_Class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002182143135_Add_ColorVehicle_Model_Class.resx">
+      <DependentUpon>202002182143135_Add_ColorVehicle_Model_Class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002182153040_Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID.resx">
+      <DependentUpon>202002182153040_Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002190654298_Rename_ColorID_To_ColorId.resx">
+      <DependentUpon>202002190654298_Rename_ColorID_To_ColorId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

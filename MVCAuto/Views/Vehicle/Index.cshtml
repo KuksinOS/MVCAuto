@@ -134,7 +134,7 @@
                 @Html.DisplayFor(modelItem => item.Vin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Color)
+                @Html.DisplayFor(modelItem => item.ColorVehicle.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
@@ -186,10 +186,10 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.SelVehicle.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.SelVehicle.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EnumDropDownListFor(model => model.SelVehicle.Color, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.SelVehicle.Color, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.SelVehicle.ColorId, ViewBag.ColorVehicles as SelectList, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SelVehicle.ColorId, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

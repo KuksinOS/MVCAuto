@@ -1,25 +1,11 @@
-﻿https://metanit.com/sharp/mvc5/12.3.php
-https://docs.microsoft.com/uk-ua/ef/ef6/modeling/code-first/migrations/index?redirectedfrom=MSDN
-https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
-
-The project 'MVCAuto' failed to build. ->
-Rebuild
-PM>
-enable-migrations
-Add-Migration "Add_Vehicle_Model_Class"
-Update-Database
-https://articles.runtings.co.uk/2014/12/solved-aspnet-identity-2-throws.html
-https://stackoverflow.com/questions/51526632/entity-framework-migration-alter-table-statement-conflicted-with-foreign-key-c
-сначала создаем таблицу-справочник
-Add-Migration "Add_ColorVehicle_Model_Class"
-in this case you must update the database after creating StoryType and the after adding the StoryTypeId to the class Story
-Update-Database
-
-Потом устанавливаем вторичный ключ
-Add-Migration "Add_FK_dbo.Vehicles_dbo.ColorVehicles_ColorID"
-The ALTER TABLE statement conflicted with the FOREIGN KEY constraint "FK_dbo.Vehicles_dbo.ColorVehicles_ColorID". The conflict occurred in database "aspnet-MVCAuto-20200215125525", table "dbo.ColorVehicles", column 'ColorId'.
-Переделаем метод в миграции       
-       public override void Up()
+﻿namespace MVCAuto.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Add_FK_dboVehicles_dboColorVehicles_ColorID : DbMigration
+    {
+        public override void Up()
         {
             AddColumn("dbo.Vehicles", "ColorID", c => c.Int(nullable: true));
             //вставим данные заглушки в базу данных для удовлетворения ограничений внешнего ключа, и это будет сделано. 
@@ -32,8 +18,12 @@ The ALTER TABLE statement conflicted with the FOREIGN KEY constraint "FK_dbo.Veh
             CreateIndex("dbo.Vehicles", "ColorID");
             AddForeignKey("dbo.Vehicles", "ColorID", "dbo.ColorVehicles", "ColorId", cascadeDelete: true);
         }
-Update-Database
-
-Add-Migration "Rename_ColorID_To_ColorId"
-
-Update-Database
+        
+        public override void Down()
+        {
+            DropForeignKey("dbo.Vehicles", "ColorID", "dbo.ColorVehicles");
+            DropIndex("dbo.Vehicles", new[] { "ColorID" });
+            DropColumn("dbo.Vehicles", "ColorID");
+        }
+    }
+}

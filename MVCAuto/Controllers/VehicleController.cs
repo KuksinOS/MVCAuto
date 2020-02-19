@@ -16,16 +16,30 @@ namespace MVCAuto.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
+
         // GET: Vehicle
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? SelectedColorVehicle)
         {
             var viewModel = new VehicleViews();
-            viewModel.Vehicles = db.Vehicle.ToList();
+            var colorVehicleQuery = from d in db.ColorVehicles
+                                    orderby d.Name
+                                    select d;
+            ViewBag.ColorVehicles = new SelectList(colorVehicleQuery, "ColorId", "Name", SelectedColorVehicle);
+            int colorId = SelectedColorVehicle.GetValueOrDefault();
+
+
+            //viewModel.Vehicles = db.Vehicles.ToList();
+            //viewModel.Vehicles = db.Vehicles.OrderBy(q => q.Vin).ToList();
+            viewModel.Vehicles = db.Vehicles
+            .Where(v => !SelectedColorVehicle.HasValue || v.ColorId == colorId)
+            .OrderBy(v => v.Vin)
+            .Include(c => c.ColorVehicle).ToList();
 
             if (id != null)
             {
                 ViewBag.ID = id.Value;
-                Vehicle vehicle = db.Vehicle.Find(id);
+                Vehicle vehicle = db.Vehicles.Find(id);
                 if (vehicle != null)
                 {
                     viewModel.SelVehicle = vehicle;
@@ -42,7 +56,7 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicle.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -53,33 +67,18 @@ namespace MVCAuto.Controllers
         // GET: Vehicle/Create
         public ActionResult Create()
         {
+            ViewBag.ColorId = new SelectList(db.ColorVehicles, "ColorId", "Name");
             return View();
         }
 
-        // POST: Vehicle/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "ID,Vin,Color,Price,OperDate,IntRowVer,RowVersion")] Vehicle vehicle)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Vehicle.Add(vehicle);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(vehicle);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Vin,Color,Price,OperDate,IntRowVer")] Vehicle SelVehicle)
+        public async Task<ActionResult> Create([Bind(Include = "Vin,ColorId,Price,OperDate,IntRowVer")] Vehicle SelVehicle)
         {
             if (ModelState.IsValid)
             {
-                db.Vehicle.Add(SelVehicle);
+                db.Vehicles.Add(SelVehicle);
                 await db.SaveChangesAsync();
                 // return View("Index", SelVehicle);
                 return RedirectToAction("Index");
@@ -98,32 +97,20 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicle.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
             }
+            //ViewBag.ColorId = new SelectList(db.ColorVehicles, "ColorId", "Name");
+            PopulateColorVehiclesDropDownList(vehicle.ColorId);
             return View(vehicle);
         }
 
-        // POST: Vehicle/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "ID,Vin,Color,Price,OperDate,IntRowVer,RowVersion")] Vehicle vehicle)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(vehicle).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(vehicle);
-        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Vin,Color,Price,OperDate,IntRowVer,RowVersion")] Vehicle SelVehicle)
+        public ActionResult Edit([Bind(Include = "ID,Vin,ColorId,Price,OperDate,IntRowVer,RowVersion")] Vehicle SelVehicle)
         {
             if (SelVehicle.ID == 0)
             {
@@ -146,7 +133,7 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicle.Find(id);
+            Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -159,8 +146,8 @@ namespace MVCAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vehicle vehicle = db.Vehicle.Find(id);
-            db.Vehicle.Remove(vehicle);
+            Vehicle vehicle = db.Vehicles.Find(id);
+            db.Vehicles.Remove(vehicle);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -172,6 +159,14 @@ namespace MVCAuto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void PopulateColorVehiclesDropDownList(object selectedColorVehicle = null)
+        {
+            var colorVehicleQuery = from d in db.ColorVehicles
+                                    orderby d.Name
+                                    select d;
+            ViewBag.ColorId = new SelectList(colorVehicleQuery, "ColorId", "Name", selectedColorVehicle);
         }
     }
 }

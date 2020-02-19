@@ -30,7 +30,7 @@ namespace MVCAuto.Models
         [StringLength(17, MinimumLength = 17, ErrorMessage = "Vin cannot be longer than 17 characters.")]
         public string Vin { get; set; }
         [Required]
-        public Color Color { get; set; }
+       // public Color Color { get; set; }
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
@@ -39,6 +39,8 @@ namespace MVCAuto.Models
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+        public int ColorId { get; set; }
+        public virtual ColorVehicle ColorVehicle { get; set; }
 
     }
 }

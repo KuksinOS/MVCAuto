@@ -1,0 +1,20 @@
+﻿https://www.c-sharpcorner.com/article/dropdownlist-in-asp-net-mvc/
+
+    public enum Color
+    {
+        Red,
+        Orange,
+        Yellow,
+        Green,
+        Blue,
+        Purple,
+        Brown,
+        Magenta,
+        Black,
+        White
+    }
+ public class Vehicle
+    {
+public Color Color { get; set; }
+}
+@Html.EnumDropDownListFor(model => model.Color, htmlAttributes: new { @class = "form-control" })

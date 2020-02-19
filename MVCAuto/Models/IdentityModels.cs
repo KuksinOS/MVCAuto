@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -20,7 +21,8 @@ namespace MVCAuto.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Vehicle> Vehicle { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<ColorVehicle> ColorVehicles { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -30,6 +32,18 @@ namespace MVCAuto.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<ColorVehicle>()
+            //    .HasKey(i => i.ColorId);
+            //modelBuilder.Entity<ColorVehicle>()
+            //  .Property(i => i.ColorId)
+            //  .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
+            //  .HasColumnName("CustomIdName");
         }
     }
 }
