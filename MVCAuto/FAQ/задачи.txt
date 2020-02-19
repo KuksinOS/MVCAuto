@@ -11,7 +11,7 @@ https://docs.microsoft.com/ru-ru/azure/app-service/app-service-web-tutorial-dotn
 https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/security/
 https://codewithhugo.com/pass-cookies-axios-fetch-requests/
 https://docs.microsoft.com/ru-ru/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity
-
+https://docs.microsoft.com/ru-ru/ef/ef6/modeling/code-first/workflows/existing-database
 Код сначала создает имена по умолчанию хранимых процедур. Если вы используете существующую базу данных, может потребоваться настроить имен хранимых процедур, чтобы использовать хранимые процедуры, уже определенные в базе данных. Сведения о том, как это сделать, см. в разделе Entity Framework код первого Insert/Update/Delete хранимые процедуры.
 Если вы хотите настроить, что созданные хранимых процедур, можно изменить сформированный код для миграций Up метод, который создает хранимую процедуру. Таким образом изменения будут отражены каждый раз, когда что миграции запускается и будет применяться в производственной базе данных, при миграции автоматически выполняется в рабочей среде после развертывания.
 Если вы хотите изменить существующую хранимую процедуру, которая была создана в предыдущей миграции, используйте команду Add-Migration, чтобы создать пустой миграции и вручную написать код, вызывающий AlterStoredProcedure метод .

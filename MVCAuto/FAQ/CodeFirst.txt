@@ -1,6 +1,16 @@
 ﻿https://metanit.com/sharp/mvc5/12.3.php
 https://docs.microsoft.com/uk-ua/ef/ef6/modeling/code-first/migrations/index?redirectedfrom=MSDN
 https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
+https://metanit.com/sharp/entityframework/1.2.php
+https://docs.microsoft.com/ru-ru/ef/ef6/fundamentals/working-with-dbcontext
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
+https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
+https://docs.microsoft.com/ru-ru/ef/ef6/fundamentals/configuring/connection-strings
+https://metanit.com/sharp/entityframework/2.2.php
+https://metanit.com/sharp/entityframework/1.2.php
+DbContext: определяет контекст данных, используемый для взаимодействия с базой данных.
+DbModelBuilder: сопоставляет классы на языке C# с сущностями в базе данных.
+DbSet/DbSet<TEntity>: представляет набор сущностей, хранящихся в базе данных
 
 The project 'MVCAuto' failed to build. ->
 Rebuild

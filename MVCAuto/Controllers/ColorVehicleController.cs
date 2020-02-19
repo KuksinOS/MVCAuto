@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVCAuto.Library.DataAccess;
+using MVCAuto.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,12 +13,18 @@ namespace MVCAuto.Models
 {
     public class ColorVehicleController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ColorVehicle
         public ActionResult Index()
         {
-            return View(db.ColorVehicles.ToList());
+
+            //return View(db.ColorVehicles.ToList());
+
+            ColorVehicleData data = new ColorVehicleData();
+            return View(data.GetColorVehicles());
+
+
         }
 
         // GET: ColorVehicle/Details/5
@@ -26,7 +34,10 @@ namespace MVCAuto.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            //ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            ColorVehicleData data = new ColorVehicleData();
+            ColorVehicle colorVehicle = data.FindColorVehicle(id);
+
             if (colorVehicle == null)
             {
                 return HttpNotFound();
@@ -49,8 +60,10 @@ namespace MVCAuto.Models
         {
             if (ModelState.IsValid)
             {
-                db.ColorVehicles.Add(colorVehicle);
-                db.SaveChanges();
+                 // db.ColorVehicles.Add(colorVehicle);
+                // db.SaveChanges();
+                ColorVehicleData data = new ColorVehicleData();
+                data.AddColorVehicle(colorVehicle);
                 return RedirectToAction("Index");
             }
 
@@ -64,7 +77,9 @@ namespace MVCAuto.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            //ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            ColorVehicleData data = new ColorVehicleData();
+            ColorVehicle colorVehicle = data.FindColorVehicle(id);
             if (colorVehicle == null)
             {
                 return HttpNotFound();
@@ -81,8 +96,11 @@ namespace MVCAuto.Models
         {
             if (ModelState.IsValid)
             {
-                db.Entry(colorVehicle).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(colorVehicle).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                ColorVehicleData data = new ColorVehicleData();
+                data.EditColorVehicle(colorVehicle);
                 return RedirectToAction("Index");
             }
             return View(colorVehicle);
@@ -95,7 +113,9 @@ namespace MVCAuto.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            //ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            ColorVehicleData data = new ColorVehicleData();
+            ColorVehicle colorVehicle = data.FindColorVehicle(id);
             if (colorVehicle == null)
             {
                 return HttpNotFound();
@@ -108,19 +128,24 @@ namespace MVCAuto.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
-            db.ColorVehicles.Remove(colorVehicle);
-            db.SaveChanges();
+            //ColorVehicle colorVehicle = db.ColorVehicles.Find(id);
+            //db.ColorVehicles.Remove(colorVehicle);
+            //db.SaveChanges();
+
+            ColorVehicleData data = new ColorVehicleData();
+            ColorVehicle colorVehicle = data.FindColorVehicle(id);
+            data.DeleteColorVehicle(colorVehicle);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -7,6 +7,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MVCAuto.Library.DataAccess;
+using MVCAuto.Library.Models;
 using MVCAuto.Models;
 using MVCAuto.ModelView;
 
@@ -14,32 +16,39 @@ namespace MVCAuto.Controllers
 {
     public class VehicleController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
 
         
 
         // GET: Vehicle
         public ActionResult Index(int? id, int? SelectedColorVehicle)
         {
+            VehicleData dataVehicle = new VehicleData();
+            ColorVehicleData dataColor = new ColorVehicleData();
             var viewModel = new VehicleViews();
-            var colorVehicleQuery = from d in db.ColorVehicles
-                                    orderby d.Name
-                                    select d;
+
+
+            //var colorVehicleQuery = from d in db.ColorVehicles
+            //                        orderby d.Name
+            //                        select d;
+
+            var colorVehicleQuery = dataColor.GetColorVehiclesOrderByName();
+
             ViewBag.ColorVehicles = new SelectList(colorVehicleQuery, "ColorId", "Name", SelectedColorVehicle);
             int colorId = SelectedColorVehicle.GetValueOrDefault();
 
+            //viewModel.Vehicles = db.Vehicles
+            //.Where(v => !SelectedColorVehicle.HasValue || v.ColorId == colorId)
+            //.OrderBy(v => v.Vin)
+            //.Include(c => c.ColorVehicle).ToList();
+            viewModel.Vehicles = dataVehicle.GetVehicles(colorId, SelectedColorVehicle);
 
-            //viewModel.Vehicles = db.Vehicles.ToList();
-            //viewModel.Vehicles = db.Vehicles.OrderBy(q => q.Vin).ToList();
-            viewModel.Vehicles = db.Vehicles
-            .Where(v => !SelectedColorVehicle.HasValue || v.ColorId == colorId)
-            .OrderBy(v => v.Vin)
-            .Include(c => c.ColorVehicle).ToList();
 
             if (id != null)
             {
                 ViewBag.ID = id.Value;
-                Vehicle vehicle = db.Vehicles.Find(id);
+                //Vehicle vehicle = db.Vehicles.Find(id);
+                Vehicle vehicle = dataVehicle.FindVehicle(id);
                 if (vehicle != null)
                 {
                     viewModel.SelVehicle = vehicle;
@@ -56,7 +65,9 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            //Vehicle vehicle = db.Vehicles.Find(id);
+            VehicleData dataVehicle = new VehicleData();
+            Vehicle vehicle = dataVehicle.FindVehicle(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -67,7 +78,9 @@ namespace MVCAuto.Controllers
         // GET: Vehicle/Create
         public ActionResult Create()
         {
-            ViewBag.ColorId = new SelectList(db.ColorVehicles, "ColorId", "Name");
+            //ViewBag.ColorId = new SelectList(db.ColorVehicles, "ColorId", "Name");
+            ColorVehicleData dataColor = new ColorVehicleData();
+            ViewBag.ColorId = new SelectList(dataColor.GetColorVehicles(), "ColorId", "Name");
             return View();
         }
 
@@ -78,8 +91,12 @@ namespace MVCAuto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Vehicles.Add(SelVehicle);
-                await db.SaveChangesAsync();
+                //db.Vehicles.Add(SelVehicle);
+                //await db.SaveChangesAsync();
+
+                VehicleData dataVehicle = new VehicleData();
+                await dataVehicle.AddVehicle(SelVehicle);
+
                 // return View("Index", SelVehicle);
                 return RedirectToAction("Index");
             }
@@ -97,7 +114,10 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            //Vehicle vehicle = db.Vehicles.Find(id);
+            VehicleData dataVehicle = new VehicleData();
+            Vehicle vehicle = dataVehicle.FindVehicle(id);
+
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -119,8 +139,12 @@ namespace MVCAuto.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(SelVehicle).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(SelVehicle).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                VehicleData dataVehicle = new VehicleData();
+                dataVehicle.EditVehicle(SelVehicle);
+
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -133,7 +157,10 @@ namespace MVCAuto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            //Vehicle vehicle = db.Vehicles.Find(id);
+            VehicleData dataVehicle = new VehicleData();
+            Vehicle vehicle = dataVehicle.FindVehicle(id);
+
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -146,26 +173,35 @@ namespace MVCAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
+            //Vehicle vehicle = db.Vehicles.Find(id);
+            VehicleData dataVehicle = new VehicleData();
+            Vehicle vehicle = dataVehicle.FindVehicle(id);
+
+            // db.Vehicles.Remove(vehicle);
+            // db.SaveChanges();
+
+            dataVehicle.DeleteVehicle(vehicle);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         private void PopulateColorVehiclesDropDownList(object selectedColorVehicle = null)
         {
-            var colorVehicleQuery = from d in db.ColorVehicles
-                                    orderby d.Name
-                                    select d;
+            //var colorVehicleQuery = from d in db.ColorVehicles
+            //                        orderby d.Name
+            //                        select d;
+
+            ColorVehicleData dataColor = new ColorVehicleData();
+            var colorVehicleQuery = dataColor.GetColorVehiclesOrderByName();
+
             ViewBag.ColorId = new SelectList(colorVehicleQuery, "ColorId", "Name", selectedColorVehicle);
         }
     }
