@@ -1,5 +1,6 @@
 ﻿@*@model IEnumerable<MVCAuto.Models.Vehicle>*@
 @model MVCAuto.ModelView.VehicleViews
+@using PagedList.Mvc;
 
 <style>
     /* Stackoverflow preview fix, please ignore */
@@ -101,20 +102,27 @@
 </nav>
 
 
+@using (Html.BeginForm())
+{
+    <p>
+        Find by Vin: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
 
 <table class="table">
     <tr>
         <th>
-            Vin
+            @Html.ActionLink("Vin", "Index", new { sortOrder = ViewBag.VinSortParm })
         </th>
         <th>
-            Color
+            @Html.ActionLink("ColorVehicle", "Index", new { sortOrder = ViewBag.ColorVehicleSortParm })
         </th>
         <th>
-            Price
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm })
         </th>
         <th>
-            OperDate
+            @Html.ActionLink("Oper Date", "Index", new { sortOrder = ViewBag.OperDateSortParm })
         </th>
         <th>
             IntRowVer
@@ -232,7 +240,7 @@
 
     function onSubmit(event) {
 
-       // event.preventDefault();
+        // event.preventDefault();
         if ($('#IDGRUD').valid())
             return true;
         else

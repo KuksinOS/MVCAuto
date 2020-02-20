@@ -43,4 +43,5 @@ namespace MVCAuto.Library.Models
         public virtual ColorVehicle ColorVehicle { get; set; }
 
     }
+
 }

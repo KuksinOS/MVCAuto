@@ -21,8 +21,13 @@ namespace MVCAuto.Controllers
         
 
         // GET: Vehicle
-        public ActionResult Index(int? id, int? SelectedColorVehicle)
+        public ActionResult Index(int? id, int? SelectedColorVehicle, string sortOrder, string searchString)
         {
+            ViewBag.VinSortParm = String.IsNullOrEmpty(sortOrder) ? "vin_desc" : "";
+            ViewBag.ColorVehicleSortParm = sortOrder == "ColorVehicle" ? "colorVehicle_desc" : "ColorVehicle";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewBag.OperDateSortParm = sortOrder == "OperDate" ? "operDate_desc" : "OperDate";
+
             VehicleData dataVehicle = new VehicleData();
             ColorVehicleData dataColor = new ColorVehicleData();
             var viewModel = new VehicleViews();
@@ -41,8 +46,47 @@ namespace MVCAuto.Controllers
             //.Where(v => !SelectedColorVehicle.HasValue || v.ColorId == colorId)
             //.OrderBy(v => v.Vin)
             //.Include(c => c.ColorVehicle).ToList();
-            viewModel.Vehicles = dataVehicle.GetVehicles(colorId, SelectedColorVehicle);
 
+            //viewModel.Vehicles = dataVehicle.GetVehicles(colorId, SelectedColorVehicle);
+            var vehicles = from v in dataVehicle.GetVehicles(colorId, SelectedColorVehicle)
+                           select v;
+            //search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vehicles = vehicles.Where(v => v.Vin.Contains(searchString));                           
+            }
+
+
+            //sorting
+            switch (sortOrder)
+            {
+                case "vin_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Vin);
+                    break;
+                case "ColorVehicle":
+                    vehicles = vehicles.OrderBy(v => v.ColorId);
+                    break;
+                case "colorVehicle_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.ColorId);
+                    break;
+                case "Price":
+                    vehicles = vehicles.OrderBy(v => v.Price);
+                    break;
+                case "price_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Price);
+                    break;
+                case "OperDate":
+                    vehicles = vehicles.OrderBy(v => v.OperDate);
+                    break;
+                case "operDate_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.OperDate);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.Vin);
+                    break;
+            }
+
+            viewModel.Vehicles = vehicles;
 
             if (id != null)
             {

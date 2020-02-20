@@ -1,0 +1,6 @@
+﻿https://docs.microsoft.com/ru-ru/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+https://metanit.com/sharp/tutorial/3.23.php
+сортировка по полю вложеного класса
+orderbydescending At least one object must implement IComparable
+https://entityframework.net/knowledge-base/23307566/linq-at-least-one-object-must-implement-icomparable
+
