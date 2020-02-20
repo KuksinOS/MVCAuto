@@ -1,0 +1,44 @@
+﻿https://stackoverflow.com/questions/16786925/how-to-run-seed-method-of-configuration-class-of-migrations
+https://stackoverflow.com/questions/35819056/manually-run-entity-framework-migration-seed-method-including-after-down-mi
+
+Answering your first question. Create a Migration by running add-migration SeedOnly
+
+Clear out all Up() and Down() code generated if there was any pending changes
+
+public partial class SeedOnly : DbMigration
+{
+    public override void Up()
+    {
+    }
+
+    public override void Down()
+    {
+    }
+}
+Then you can Target a Specific Migration by running update-database -TargetMigration SeedOnly in the Package Manager console
+
+After research I finally found the workaround for this issue:
+
+1) Make Configuration public:
+
+public sealed class Configuration : DbMigrationsConfiguration<YourContextClassHere>
+2) Add the code below anywhere. It will run the latest migration and update your database:
+
+Configuration configuration = new Configuration();
+configuration.ContextType = typeof(MVCAutoContext);
+var migrator = new DbMigrator(configuration);
+
+//This will get the SQL script which will update the DB and write it to debug
+var scriptor = new MigratorScriptingDecorator(migrator);
+string script = scriptor.ScriptUpdate(sourceMigration: null, targetMigration: null).ToString();
+Debug.Write(script);
+
+//This will run the migration update script and will run Seed() method
+migrator.Update();
+
+--------------------------------------------------------------------------
+
+Add-Migration "Add_SeedOnly"
+Update-Database
+
+https://stackoverflow.com/questions/17020947/how-do-i-check-entityvalidationerrors-when-validation-fails

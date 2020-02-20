@@ -1,0 +1,3 @@
+﻿https://www.c-sharpcorner.com/article/generating-random-number-and-string-in-C-Sharp/
+https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings
+

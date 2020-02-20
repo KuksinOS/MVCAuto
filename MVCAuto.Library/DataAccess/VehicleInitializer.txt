@@ -1,0 +1,39 @@
+﻿using FizzWare.NBuilder;
+using MVCAuto.Library.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MVCAuto.Library.DataAccess
+{
+    public class VehicleInitializer : System.Data.Entity.CreateDatabaseIfNotExists<MVCAutoContext>
+    {
+        protected override void Seed(MVCAutoContext context)
+        {
+            ColorVehicleData dataColor = new ColorVehicleData();
+            var colorsVehicle = dataColor.GetColorVehiclesOrderByName().ToList();
+
+            // Generate vehicles
+            var priceGenerator = new RandomGenerator();
+            var daysGenerator = new RandomGenerator();
+            var itemCountGenerator = new RandomGenerator();
+
+
+
+            var vehicles = Builder<Vehicle>.CreateListOfSize(1)
+                .All()
+                    .With(v => v.Vin = Faker.Name.First())
+                    .With(v => v.Price = priceGenerator.Next(50, 500))
+                    .With(v => v.OperDate = DateTime.Now.AddDays(-daysGenerator.Next(1, 100)))
+                    .With(v => v.IntRowVer = itemCountGenerator.Next(1, 10))
+                    .With(v => v.ColorVehicle = Pick<ColorVehicle>.RandomItemFrom(colorsVehicle))
+                    .Build();
+
+            context.Vehicles.AddOrUpdate(v => v.ID, vehicles.ToArray());
+
+        }
+    }
+}

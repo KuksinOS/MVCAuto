@@ -222,10 +222,13 @@
     <Content Include="FAQ\dialog.txt" />
     <Content Include="FAQ\DropDownList.txt" />
     <Content Include="FAQ\DynamicCSS.txt" />
+    <Content Include="FAQ\FakerNet.txt" />
     <Content Include="FAQ\FAQ.txt" />
     <Content Include="FAQ\HtmlBeginForm.txt" />
     <Content Include="FAQ\Menu.txt" />
     <Content Include="FAQ\PathDB.txt" />
+    <Content Include="FAQ\RandomGenerator.txt" />
+    <Content Include="FAQ\RunSeedMethod.txt" />
     <Content Include="FAQ\задачи.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
