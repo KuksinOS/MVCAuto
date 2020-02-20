@@ -1,6 +1,7 @@
 ﻿@*@model IEnumerable<MVCAuto.Models.Vehicle>*@
 @model MVCAuto.ModelView.VehicleViews
 @using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <style>
     /* Stackoverflow preview fix, please ignore */
@@ -163,6 +164,11 @@
     }
 
 </table>
+<br />
+Page @(Model.Vehicles.PageCount < Model.Vehicles.PageNumber ? 0 : Model.Vehicles.PageNumber) of @Model.Vehicles.PageCount
+
+@Html.PagedListPager(Model.Vehicles, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 <!-- Modal -->
 @*@using (Html.BeginForm("Create", "Vehicle", FormMethod.Post))*@

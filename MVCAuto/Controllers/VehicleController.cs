@@ -11,6 +11,7 @@ using MVCAuto.Library.DataAccess;
 using MVCAuto.Library.Models;
 using MVCAuto.Models;
 using MVCAuto.ModelView;
+using PagedList;
 
 namespace MVCAuto.Controllers
 {
@@ -21,12 +22,22 @@ namespace MVCAuto.Controllers
         
 
         // GET: Vehicle
-        public ActionResult Index(int? id, int? SelectedColorVehicle, string sortOrder, string searchString)
+        public ActionResult Index(int? id, int? SelectedColorVehicle, string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.VinSortParm = String.IsNullOrEmpty(sortOrder) ? "vin_desc" : "";
             ViewBag.ColorVehicleSortParm = sortOrder == "ColorVehicle" ? "colorVehicle_desc" : "ColorVehicle";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
             ViewBag.OperDateSortParm = sortOrder == "OperDate" ? "operDate_desc" : "OperDate";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
 
             VehicleData dataVehicle = new VehicleData();
             ColorVehicleData dataColor = new ColorVehicleData();
@@ -86,7 +97,11 @@ namespace MVCAuto.Controllers
                     break;
             }
 
-            viewModel.Vehicles = vehicles;
+           // viewModel.Vehicles = vehicles;
+           //paging
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            viewModel.Vehicles = vehicles.ToPagedList(pageNumber, pageSize);
 
             if (id != null)
             {

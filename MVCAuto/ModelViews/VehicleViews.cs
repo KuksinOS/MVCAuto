@@ -9,7 +9,8 @@ namespace MVCAuto.ModelView
 {
     public class VehicleViews
     {
-        public IEnumerable<Vehicle> Vehicles { get; set; }
+        //public IEnumerable<Vehicle> Vehicles { get; set; }
+        public PagedList.IPagedList<Vehicle> Vehicles { get; set; }
 
         public Vehicle SelVehicle { get; set; }
 
