@@ -1,0 +1,165 @@
+﻿<style type="text/css">
+
+    #colorvehiclesgrid tr.highlighted td {
+        background: #848484;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2> Index</h2>
+
+<table id="colorvehiclesgrid" class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th> </th>
+    </tr>
+    <tbody>
+    </tbody>
+</table>
+<div class="col-md-12 text-center">
+    <ul class="pagination pull-right" id="pagreqctrgrid"> </ul>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.search);
+
+            return (results !== null) ? results[1] || 0 : false;
+        }
+
+        pageid = $.urlParam('page');
+            if (pageid == false)
+            pageid = 1;
+
+        loadrowsdata();
+    });
+
+
+    function loadrowsdata() {
+        //Get
+        const uri = '/api/ColorVehiclesAPI/GetParamsPagerColorVehicles';
+        $.getJSON(uri) .done(function (data) {
+                        getparamspager(data, loadallrows);
+                    }) .fail(function (jqXHR, textStatus, err) {
+                        alert(err);
+                    });
+    }
+
+
+            function getparamspager(data, loadrows) {
+            if (data.TotalPages > 1) {
+
+                $('#pagreqctrgrid').twbsPagination({
+                    totalPages: data.TotalPages,//count pages
+                    // the current page that show on start
+                    startPage: 1,
+
+                    // maximum visible pages
+                    visiblePages: 5,
+
+                    initiateStartPageClick: true,
+
+                    // template for pagination links
+                    href: false,
+
+                    // variable name in href template for page number
+                    hrefVariable: '{{number}}',
+
+                    // Text labels
+                    first: 'First',
+                    prev: 'Previous',
+                    next: 'Next',
+                    last: 'Last',
+
+                    // carousel-style pagination
+                    loop: false,
+
+                    // callback function
+                    onPageClick: function (event, page) {
+                        $('.page-active').removeClass('page-active');
+                        $('#page' + page).addClass('page-active');
+                        loadrows(page);
+
+                    },
+
+                    // pagination Classes
+                    paginationClass: 'pagination',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first',
+                    pageClass: 'page',
+                    activeClass: 'active',
+                    disabledClass: 'disabled'
+
+                });
+            }
+            else {
+                pageid = 1;
+                loadrows(pageid);
+            }
+        }
+
+            let loadallrows = function loadallrows(pageid) {
+            //Get
+            var uri = '/api/ColorVehiclesAPI/GetPagerColorVehicles';
+            $.getJSON(uri, { page: pageid })
+                .done(function (data) {
+                    $("[id*=colorvehiclesgrid] tbody tr").remove();
+                    $.each(data, function (i, item) {
+
+                        var colorvehicle = {
+                            "ColorId": item.ColorId,
+                            "Name": item.Name
+                        };
+                        AppendRow(colorvehicle);
+
+                    });
+                    enableClick();
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    alert(err);
+                });
+        }
+
+
+            function AppendRow(colorvehicle) {
+
+            $("[id*=colorvehiclesgrid] tbody")
+                .append($('<tr>')
+                    .append($('<td style="display:none;">')
+                        .append(colorvehicle.ColorId))
+                    .append($('<td>')
+                        .append(colorvehicle.Name)));
+            }
+
+            function enableClick() {
+            $("[id*=colorvehiclesgrid] tr").click(function (e) {
+                $("[id*=colorvehiclesgrid] tr").removeClass('highlighted');
+                $(this).addClass('highlighted');
+            });
+            }
+
+            $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.search);
+
+               return (results !== null) ? results[1] || 0 : false;
+            }
+
+            function isNullOrEmpty(value) {
+               return value == null || value === "";
+            }
+
+
+
+</script>

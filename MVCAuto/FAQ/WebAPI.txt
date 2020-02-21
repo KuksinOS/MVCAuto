@@ -1,0 +1,47 @@
+﻿https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/
+
+https://bitoftech.net/2015/01/21/asp-net-identity-2-with-asp-net-web-api-2-accounts-management/
+https://www.pluralsight.com/guides/configuring-asp-net-identity
+
+'IAppBuilder' does not contain a definition for 'UseWebApi' 
+https://social.msdn.microsoft.com/Forums/officeocs/en-US/6c1095b3-4bc4-4d60-b68a-81965ecd0f85/iappbuilder-does-not-contain-a-definition-for-usewebapi?forum=azuremobile
+Install-Package Microsoft.AspNet.WebApi.OwinSelfHost
+Install-Package Microsoft.Owin.Cors
+Install-Package Microsoft.Owin.Security.OAuth
+https://stackoverflow.com/questions/38461321/user-identity-getuserid-method-not-working-in-a-web-api-2-controller
+Если ваша ситуация точно такая же, как в моем случае, вам нужно установить токен Bearer для всех аутентифицированных запросов к контроллеру WebAPI. Контроллеры MVC используют cookie-аутентификацию, которая уже установлена отдельно и работает. Но для контроллеров WebAPI, очевидно, мы должны сделать немного больше работы.
+В моем проекте WebAPI «Индивидуальные учетные записи» по умолчанию я вижу, что переменная хранения сеанса, «accessToken», уже установлена по умолчанию. Все, что мне нужно было сделать, это прочитать его из этой переменной хранения сеанса и убедиться, что для каждого запроса от моего клиента к контроллеру WebAPI заголовок «Authorization» установлен на «Bearer [ваш токен аутентификации]».
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
+https://brockallen.com/2013/10/27/using-cookie-authentication-middleware-with-web-api-and-401-response-codes/
+
+
+
+Развернуть проект asp net Identity MVC с поддержкой Web API поставить галочку MVC + WebAPI и Individual User Account
+Добавить строчку
+Global.asax -> GlobalConfiguration.Configure(WebApiConfig.Register);
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+
+namespace WebApplication15
+{
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+    }
+}
+
