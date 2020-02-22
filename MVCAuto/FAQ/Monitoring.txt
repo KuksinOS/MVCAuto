@@ -1,4 +1,5 @@
-using MVCAuto.Monitoring;
+﻿Global.asax
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +8,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-//This will set register method to be called before Application_Start
-[assembly: PreApplicationStartMethod(typeof(MVCAuto.MvcApplication), "Register")]
 
 namespace MVCAuto
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static void Register()
-        {
-            HttpApplication.RegisterModule(typeof(ModuleExampleTestCS));
-            HttpApplication.RegisterModule(typeof(LoginModule));
-        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -43,7 +37,11 @@ namespace MVCAuto
         //    HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         //}
 
+        //only web pages
+https://docs.microsoft.com/ru-ru/previous-versions/aspnet/ms227545%28v%3dvs.100%29
+https://docs.microsoft.com/ru-ru/previous-versions/aspnet/ms227980%28v%3dvs.100%29
+
+https://docs.microsoft.com/en-us/dotnet/api/system.web.httpcontext.currentnotification?view=netframework-4.8
+http://dotnetlionet.blogspot.com/2015/06/how-to-add-httpmodule-in-mvc5.html
 
 
-    }
-}

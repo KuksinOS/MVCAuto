@@ -222,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\MessageHandler1.cs" />
     <Compile Include="Migrations\202002162025323_InitialCreate.cs" />
     <Compile Include="Migrations\202002162025323_InitialCreate.designer.cs">
       <DependentUpon>202002162025323_InitialCreate.cs</DependentUpon>
@@ -248,6 +249,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="ModelViews\VehicleViews.cs" />
+    <Compile Include="Monitoring\CustomWebEvents.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitoring\LoginModule.cs" />
+    <Compile Include="Monitoring\ModuleExampleTestCS.cs" />
+    <Compile Include="Monitoring\SampleWebRequestEvent.cs" />
     <Compile Include="Plugins\Pager.cs" />
     <Compile Include="Plugins\Pager1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -272,6 +279,7 @@
     <Content Include="FAQ\FAQ.txt" />
     <Content Include="FAQ\HtmlBeginForm.txt" />
     <Content Include="FAQ\Menu.txt" />
+    <Content Include="FAQ\Monitoring.txt" />
     <Content Include="FAQ\Paging.txt" />
     <Content Include="FAQ\PathDB.txt" />
     <Content Include="FAQ\RandomGenerator.txt" />

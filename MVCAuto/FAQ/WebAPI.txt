@@ -44,4 +44,12 @@ namespace WebApplication15
         }
     }
 }
+Перехват запросов web API
+Обработчики сообщений на стороне сервера
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/advanced/http-message-handlers
 
+Пример Проверка наличия ключа API
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/advanced/http-message-handlers
+
+set cookie
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/advanced/http-cookies

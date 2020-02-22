@@ -1,2 +1,49 @@
-﻿https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/advanced/http-message-handlers
+﻿https://docs.microsoft.com/en-us/dotnet/api/system.web.httpcontext.currentnotification?view=netframework-4.8
+http://dotnetlionet.blogspot.com/2015/06/how-to-add-httpmodule-in-mvc5.html
 
+
+https://docs.microsoft.com/ru-ru/aspnet/web-api/overview/advanced/http-message-handlers
+
+https://stackoverflow.com/questions/23507283/why-does-a-call-to-an-asp-net-mvc-controller-not-execute-a-delegatinghandler
+
+Request from Client
+                       |
+                      IIS
+                       |                           
+                    ASP.NET
+                       |
+            HttpApplication.BeginRequest
+                       |
+                   et cetera
+                       |
+         HttpApplication.MapRequestHandler - is this what does the routing?
+                       |
+                     FORK                           
+                   /       \
+                  /         \
+                 /           \
+                /             \
+               /               \
+         **Web API**           **MVC**
+              |                   |
+ HttpControllerRouteHandler   MvcRouteHandler
+              |                   |
+    HttpControllerHandler         |    
+              |                   |
+    HttpMessageHandlers       EQUIVALENT?
+            i.e.                  |
+    DelegatingHandlers            |
+            incl.                 |
+    HttpServer                    |
+    CustomHandlers                |
+    HttpRoutingDispatcher         |
+    HttpControllerDispatcher      |
+
+    https://docs.microsoft.com/en-us/previous-versions/bb470252(v=vs.140)?redirectedfrom=MSDN
+
+    Using the Global.asax File
+The Global.asax file is used in Integrated mode in IIS 7.0 much as it is used in ASP.NET in IIS 6.0. For more information, see the "Life Cycle Events and Global.asax File" section in ASP.NET Application Life Cycle Overview for IIS 5.0 and 6.0.
+
+One difference is that you can add handlers for the MapRequestHandler, LogRequest, and PostLogRequest events. These events are supported for applications that run in Integrated mode in IIS 7.0 and with the .NET Framework 3.0 or later.
+
+You can provide application event handlers in the Global.asax file to add code that executes for all requests that are handled by ASP.NET, such as requests for .aspx and .axd pages. However, handler code in the Global.asax file is not called for requests for non-ASP.NET resources, such as static files. To run managed code that runs for all resources, create a custom module that implements the IHttpModule interface. The custom module will run for all requests to resources in the application, even if the resource handler is not an ASP.NET handler.

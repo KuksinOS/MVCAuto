@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCAuto.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,6 +10,8 @@ namespace MVCAuto
     {
         public static void Register(HttpConfiguration config)
         {
+            config.MessageHandlers.Add(new MessageHandler1());
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
